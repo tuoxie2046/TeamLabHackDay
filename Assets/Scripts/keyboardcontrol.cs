@@ -22,6 +22,8 @@ public class keyboardcontrol : MonoBehaviour {
 	public Sprite lightingImage;
 	public Sprite earthquakeImage;
 
+	public MeshRenderer fallingObject;
+
 	//public AudioClip[] musicList;
 	public AudioClip eqMusic;
 	public AudioClip thunderMusic;
@@ -59,7 +61,13 @@ public class keyboardcontrol : MonoBehaviour {
 			zmyInt = Random.Range(-2,3);
 
 			Transform cloneLighting = Instantiate(lighting, new Vector3(xmyInt, 0.0f, zmyInt), Quaternion.Euler(0.0f, 0.0f, 90.0f)) as Transform;
+
+			MeshRenderer cloneChair = Instantiate(fallingObject, new Vector3(Random.Range(-5,2), 2.0f, Random.Range(-2,3)), Quaternion.Euler(Random.Range(0,360), Random.Range(0,360), Random.Range(0,360))) as MeshRenderer;
+			cloneChair.gameObject.AddComponent<Rigidbody>();
+
 			Destroy (cloneLighting.gameObject, 3);
+			Destroy (cloneChair.gameObject, 3);
+
 			sr.sprite = lightingImage;
 			stingSource.clip = thunderMusic;
 			stingSource.Play ();
