@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 using EZCameraShake;
 
@@ -13,6 +14,12 @@ public class keyboardcontrol : MonoBehaviour {
 	public Sprite rainImage;
 	public Sprite lightingImage;
 	public Sprite earthquakeImage;
+
+	//public AudioClip[] musicList;
+	public AudioClip eqMusic;
+	public AudioClip thunderMusic;
+	AudioSource stingSource;
+
 
 	//public GameObject rain;
 
@@ -31,6 +38,7 @@ public class keyboardcontrol : MonoBehaviour {
 	void Start () {
 		lightime = 0.0f;
 		sr = GameObject.Find ("background").GetComponent<SpriteRenderer> ();
+		stingSource = GameObject.Find ("soundeffect").GetComponent<AudioSource> ();
 	}
 
 	// Update is called once per frame
@@ -40,6 +48,8 @@ public class keyboardcontrol : MonoBehaviour {
 			Transform cloneLighting = Instantiate(lighting, new Vector3(0f, 2.0f, 0), Quaternion.Euler(0.0f, 0.0f, 0.0f)) as Transform;
 			Destroy (cloneLighting.gameObject, 3);
 			sr.sprite = lightingImage;
+			stingSource.clip = thunderMusic;
+			stingSource.Play ();
 		}
 
 		if (Input.GetKey ("r")) {
@@ -54,6 +64,8 @@ public class keyboardcontrol : MonoBehaviour {
 				shake.DeleteOnInactive = false;
 				lightime = 3.0f;
 				sr.sprite = earthquakeImage;
+				stingSource.clip = eqMusic;
+				stingSource.Play ();
 			}
 		}
 		if (lightime > 0) {
