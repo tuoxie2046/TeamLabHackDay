@@ -29,7 +29,7 @@ public class keyboardcontrol : MonoBehaviour {
 	void Update () {
 		if (Input.GetKey ("a")) {
 
-			Transform cloneLighting = Instantiate(lighting, new Vector3(0, 0, 0), Quaternion.Euler(0.0f, 0.0f, 0.0f)) as Transform;
+			Transform cloneLighting = Instantiate(lighting, new Vector3(0f, 2.0f, 0), Quaternion.Euler(0.0f, 0.0f, 0.0f)) as Transform;
 			Destroy (cloneLighting.gameObject, 3);
 		}
 

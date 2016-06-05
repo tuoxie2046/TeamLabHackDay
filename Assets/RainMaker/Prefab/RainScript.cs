@@ -19,13 +19,13 @@ namespace DigitalRuby.RainMaker
             // keep rain and mist above the player
             if (RainFallParticleSystem != null)
             {
-                RainFallParticleSystem.transform.position = Camera.transform.position;
-                RainFallParticleSystem.transform.Translate(0.0f, RainHeight, RainForwardOffset);
+				RainFallParticleSystem.transform.position = new Vector3(0.0f, 20.05f, 0.0f);
+                //RainFallParticleSystem.transform.Translate(0.0f, RainHeight, RainForwardOffset);
                 RainFallParticleSystem.transform.rotation = Quaternion.Euler(0.0f, Camera.transform.rotation.eulerAngles.y, 0.0f);
             }
             if (RainMistParticleSystem != null)
             {
-                Vector3 pos = Camera.transform.position;
+				Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
                 pos.y = RainMistHeight;
                 RainMistParticleSystem.transform.position = pos;
             }
