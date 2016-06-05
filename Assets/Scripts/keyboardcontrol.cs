@@ -9,6 +9,11 @@ public class keyboardcontrol : MonoBehaviour {
 	private float lightime;
 	public Transform rain;
 
+	public Sprite sunnyImage;
+	public Sprite rainImage;
+	public Sprite lightingImage;
+	public Sprite earthquakeImage;
+
 	//public GameObject rain;
 
 	Vector3 posInf = new Vector3(0.25f, 0.25f, 0.25f);
@@ -18,24 +23,29 @@ public class keyboardcontrol : MonoBehaviour {
 	bool modValues;
 	bool showList;
 
+	SpriteRenderer sr;
+
 	CameraShakeInstance shake;
 
 	// Use this for initialization
 	void Start () {
 		lightime = 0.0f;
+		sr = GameObject.Find ("background").GetComponent<SpriteRenderer> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey ("a")) {
 
 			Transform cloneLighting = Instantiate(lighting, new Vector3(0f, 2.0f, 0), Quaternion.Euler(0.0f, 0.0f, 0.0f)) as Transform;
 			Destroy (cloneLighting.gameObject, 3);
+			sr.sprite = lightingImage;
 		}
 
 		if (Input.GetKey ("r")) {
 			Transform cloneRain = Instantiate(rain, new Vector3(0, 0, 0), Quaternion.identity) as Transform;
 			Destroy (cloneRain.gameObject, 3);
+			sr.sprite = rainImage;
 		}
 
 		if (Input.GetKey ("e")) {
@@ -43,6 +53,7 @@ public class keyboardcontrol : MonoBehaviour {
 				shake = CameraShaker.Instance.StartShake(magn, rough, fadeIn);
 				shake.DeleteOnInactive = false;
 				lightime = 3.0f;
+				sr.sprite = earthquakeImage;
 			}
 		}
 		if (lightime > 0) {
@@ -51,6 +62,7 @@ public class keyboardcontrol : MonoBehaviour {
 			shake.DeleteOnInactive = true;
 			shake.StartFadeOut(fadeOut);
 			shake = null;
+			sr.sprite = sunnyImage;
 		}
 
 	}
