@@ -7,8 +7,15 @@ using EZCameraShake;
 public class keyboardcontrol : MonoBehaviour {
 
 	public Transform lighting;
+
+    public GameObject handview;
+
 	private float lightime;
 	public Transform rain;
+
+    private string handges;
+
+    //public GameObject rain;
 
 	public Sprite sunnyImage;
 	public Sprite rainImage;
@@ -20,10 +27,9 @@ public class keyboardcontrol : MonoBehaviour {
 	public AudioClip thunderMusic;
 	AudioSource stingSource;
 
-
 	//public GameObject rain;
 
-	Vector3 posInf = new Vector3(0.25f, 0.25f, 0.25f);
+    Vector3 posInf = new Vector3(0.25f, 0.25f, 0.25f);
 	Vector3 rotInf = new Vector3(1, 1, 1);
 	float magn = 5, rough = 3, fadeIn = 0.1f, fadeOut = 2f;
 
@@ -43,22 +49,29 @@ public class keyboardcontrol : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey ("a")) {
+        handges = handview.GetComponent<HandsViewer>().Gesture;
+        Debug.Log("gesture"+handges);
+        if (Input.GetKey ("a") || handges == "spreadfingers") {
+            Debug.Log("spreadfingers");
 
-			Transform cloneLighting = Instantiate(lighting, new Vector3(0f, 2.0f, 0), Quaternion.Euler(0.0f, 0.0f, 0.0f)) as Transform;
+			float xmyInt, zmyInt;
+			xmyInt = Random.Range(-5,2);
+			zmyInt = Random.Range(-2,3);
+
+			Transform cloneLighting = Instantiate(lighting, new Vector3(xmyInt, 0.0f, zmyInt), Quaternion.Euler(0.0f, 0.0f, 90.0f)) as Transform;
 			Destroy (cloneLighting.gameObject, 3);
 			sr.sprite = lightingImage;
 			stingSource.clip = thunderMusic;
 			stingSource.Play ();
 		}
 
-		if (Input.GetKey ("r")) {
+		if (Input.GetKey ("g") || handges == "v-sign") {
 			Transform cloneRain = Instantiate(rain, new Vector3(0, 0, 0), Quaternion.identity) as Transform;
 			Destroy (cloneRain.gameObject, 3);
 			sr.sprite = rainImage;
 		}
 
-		if (Input.GetKey ("e")) {
+		if (Input.GetKey ("e") || handges == "tap") {
 			if (shake == null || lightime <= 0.0f) {
 				shake = CameraShaker.Instance.StartShake(magn, rough, fadeIn);
 				shake.DeleteOnInactive = false;
